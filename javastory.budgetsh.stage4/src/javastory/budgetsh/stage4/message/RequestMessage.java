@@ -11,7 +11,7 @@ public class RequestMessage {
 	
 	public RequestMessage() {
 		//
-		value = new String[2];
+		value = new String[7];
 		remark = new String[2];
 	}
 	
@@ -36,6 +36,20 @@ public class RequestMessage {
 		this.serviceName = serviceName;
 		this.value[0] = value1;
 		this.value[1] = value2;
+	}
+	
+	public RequestMessage(String serviceName, String value1, String value2,
+			int value3, String value4, String value5, String value6, String value7) {
+		//
+		this();
+		this.serviceName = serviceName;
+		this.value[0] = value1;
+		this.value[1] = value2;
+		this.value[2] = String.valueOf(value3);
+		this.value[3] = value4;
+		this.value[4] = value5;
+		this.value[5] = value6;
+		this.value[6] = value7;
 	}
 	
 	@Override

@@ -26,17 +26,19 @@ public class ClubServiceHandler implements ServiceHandler{
 	public void removeMembership(String clubId, String memberId);
 	public List<MemberDto> findAllMembers();
 	 */
+	
 	@Override
 	public ResponseMessage handle(RequestMessage request) {
 		//
 		String serviceName = request.getServiceName();
 		String responseValue = null;
 		String clubId, memberId, clubName;
+		TravelClubDto club;
 		
 		switch(serviceName) {
 		case "registerClub":
 			String json = request.getValue();
-			TravelClubDto club = (new Gson()).fromJson(json, TravelClubDto.class);
+			club = (new Gson()).fromJson(json, TravelClubDto.class);
 			if(clubService.registerClub(club)) {
 				responseValue = "success";
 			} else {
@@ -56,9 +58,16 @@ public class ClubServiceHandler implements ServiceHandler{
 			break;
 			
 		case "modify":
+			//
+			club = (new Gson()).fromJson(request.getValue(), TravelClubDto.class);
+			clubService.modify(club);
+			responseValue = "success";
 			break;
 			
 		case "remove":
+			clubId = request.getValue();
+			clubService.remove(clubId);
+			responseValue = "success";
 			break;
 			
 		case "addMembership":

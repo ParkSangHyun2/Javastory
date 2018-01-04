@@ -13,11 +13,10 @@ import javastory.budgetsh.stage4.client.transfer.stub.club.ServiceLogicLycler;
 
 public class ClubEventHelper {
 	//
-	private ClubService clubService;
+	private ClubService clubService = ServiceLogicLycler.shareInstance().createClubService();
 	
 	public boolean createTravelClub(String clubName, String clubIntroduce) {
 		//
-		clubService = new ClubServiceStub();
 		TravelClubDto registClub = new TravelClubDto(clubName, clubIntroduce);
 		if(clubService.registerClub(registClub)) {
 			return true;
@@ -27,7 +26,6 @@ public class ClubEventHelper {
 	
 	public ArrayList<TravelClubDto> find(String clubName) {
 		//
-		clubService = new ClubServiceStub();
 		TravelClubDto foundClub = clubService.findClubByName(clubName);
 		ArrayList<TravelClubDto> clubList = new ArrayList<TravelClubDto>();
 		clubList.add(foundClub);
@@ -36,7 +34,6 @@ public class ClubEventHelper {
 
 	public ArrayList<TravelClubDto> findAll() {
 		//
-		clubService = new ClubServiceStub();
 		List<TravelClubDto> foundClubs = clubService.findAll();
 		ArrayList<TravelClubDto> clubList = new ArrayList<TravelClubDto>();
 		clubList.addAll(foundClubs);

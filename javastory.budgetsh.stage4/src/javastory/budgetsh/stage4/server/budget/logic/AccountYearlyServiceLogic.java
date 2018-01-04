@@ -83,8 +83,14 @@ public class AccountYearlyServiceLogic implements AccountYearlyService {
 			String duesType) {
 		//
 		ArrayList<AccountYearlyDue> yearlyDues = (ArrayList<AccountYearlyDue>) this.retrieveAll(account);
+		boolean existYear = false;
+		for(AccountYearlyDue yearlyDue : yearlyDues) {
+			if(yearlyDue.getYear().equals(year)) {
+				existYear = true;
+			}
+		}
 		AccountYearlyDue yearlyDue = null;
-		if (yearlyDues == null) {
+		if (!existYear) {
 			AccountYearlyDue newYearlyDue = new AccountYearlyDue((new IdName(account, account)),
 					Integer.parseInt(year));
 			newYearlyDue.setBankAccount(account);

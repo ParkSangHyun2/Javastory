@@ -1,6 +1,8 @@
 package javastory.budgetsh.stage4.client.fxui.pane;
 
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,17 +59,22 @@ public class YearlyDuePaneContainer {
 		}
 		cashbookCombo.setValue(cashbookList.iterator().next().getBankAccount());
 
-		ArrayList<AccountYearlyDue> yearlyDueList = new ArrayList<AccountYearlyDue>();
-		System.out.println("It's" + cashbookCombo.getValue());
-		yearlyDueList = yearlyEvent.retrieveYearlyAll(cashbookCombo.getValue());
-		if (yearlyDueList != null) {
-			for (AccountYearlyDue yearlyDue : yearlyDueList) {
-				yearCombo.getItems().add(yearlyDue.getYear());
-			}
-			yearCombo.setValue(yearlyDueList.iterator().next().getYear());
-		}else {
-			yearCombo.setValue("2017");
+//		ArrayList<AccountYearlyDue> yearlyDueList = new ArrayList<AccountYearlyDue>();
+//		System.out.println("It's" + cashbookCombo.getValue());
+//		yearlyDueList = yearlyEvent.retrieveYearlyAll(cashbookCombo.getValue());
+//		if (yearlyDueList != null) {
+//			for (AccountYearlyDue yearlyDue : yearlyDueList) {
+//				yearCombo.getItems().add(yearlyDue.getYear());
+//			}
+//			yearCombo.setValue(yearlyDueList.iterator().next().getYear());
+//		}else {
+//			yearCombo.setValue("2017");
+//		}
+		for(int comboYear = 2016; comboYear <= Year.now().getValue(); comboYear++) {
+			yearCombo.getItems().add(String.valueOf(comboYear));
 		}
+		yearCombo.setValue(String.valueOf(Year.now().getValue()));
+		
 
 		monthlyDueTable = new TableView<MonthlyDue>();
 

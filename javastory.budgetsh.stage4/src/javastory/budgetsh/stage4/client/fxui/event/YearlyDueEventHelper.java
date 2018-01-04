@@ -4,16 +4,12 @@ import java.util.ArrayList;
 
 import javastory.budgetsh.stage4.client.dto.budget.AccountYearlyDue;
 import javastory.budgetsh.stage4.client.dto.budget.MonthlyDue;
-import javastory.budgetsh.stage4.client.service.budget.AccountMonthlyService;
 import javastory.budgetsh.stage4.client.service.budget.AccountYearlyService;
-import javastory.budgetsh.stage4.client.service.budget.CashBookService;
 import javastory.budgetsh.stage4.client.transfer.stub.budget.ServiceLogicLycler;
 
 public class YearlyDueEventHelper {
 	//
-	private AccountMonthlyService accountMonthlyService = ServiceLogicLycler.shareInstance().createMonthlyService();
 	private AccountYearlyService accountYearlyService = ServiceLogicLycler.shareInstance().createYearlyService();
-	private CashBookService cashbookService = ServiceLogicLycler.shareInstance().createCashBookService();
 
 	public ArrayList<MonthlyDue> retrieveMonthyAll(String yearlyDueAccount, String year) {
 		//
