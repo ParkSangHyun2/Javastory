@@ -5,10 +5,10 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import javastory.budgetsh.stage4.client.util.DispatchFailException;
-import javastory.budgetsh.stage4.client.util.SocketWorker;
-import javastory.budgetsh.stage4.message.RequestMessage;
-import javastory.budgetsh.stage4.message.ResponseMessage;
+import javastory.budgetsh.stage4.share.util.DispatchFailException;
+import javastory.budgetsh.stage4.share.util.RequestMessage;
+import javastory.budgetsh.stage4.share.util.ResponseMessage;
+import javastory.budgetsh.stage4.share.util.SocketWorker;
 
 public class SocketDispatcher {
 	//

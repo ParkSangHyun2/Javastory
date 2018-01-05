@@ -3,12 +3,12 @@ package javastory.budgetsh.stage4.client.fxui.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import javastory.budgetsh.stage4.client.dto.club.BoardDto;
-import javastory.budgetsh.stage4.client.dto.club.PostingDto;
-import javastory.budgetsh.stage4.client.service.club.BoardService;
-import javastory.budgetsh.stage4.client.service.club.ClubService;
-import javastory.budgetsh.stage4.client.service.club.PostingService;
 import javastory.budgetsh.stage4.client.transfer.stub.club.ServiceLogicLycler;
+import javastory.budgetsh.stage4.share.domain.club.dto.BoardDto;
+import javastory.budgetsh.stage4.share.domain.club.dto.PostingDto;
+import javastory.budgetsh.stage4.share.service.club.BoardService;
+import javastory.budgetsh.stage4.share.service.club.ClubService;
+import javastory.budgetsh.stage4.share.service.club.PostingService;
 
 
 

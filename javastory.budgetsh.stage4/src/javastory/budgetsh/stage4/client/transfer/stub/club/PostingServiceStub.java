@@ -7,20 +7,20 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import javastory.budgetsh.stage4.client.dto.club.PostingDto;
-import javastory.budgetsh.stage4.client.service.club.PostingService;
 import javastory.budgetsh.stage4.client.transfer.SocketDispatcher;
-import javastory.budgetsh.stage4.message.RequestMessage;
-import javastory.budgetsh.stage4.message.ResponseMessage;
+import javastory.budgetsh.stage4.share.domain.club.dto.PostingDto;
+import javastory.budgetsh.stage4.share.service.club.PostingService;
+import javastory.budgetsh.stage4.share.util.RequestMessage;
+import javastory.budgetsh.stage4.share.util.ResponseMessage;
 
 public class PostingServiceStub implements PostingService{
 	//
 	private SocketDispatcher dispatcher;
-	private String serviceType;
+	private String serviceName;
 	
 	public PostingServiceStub() {
 		//
-		serviceType = this.getClass().getInterfaces()[0].getSimpleName();
+		serviceName = this.getClass().getInterfaces()[0].getSimpleName();
 	}
 	@Override
 	public String register(String boardId, PostingDto posting) {
@@ -85,8 +85,8 @@ public class PostingServiceStub implements PostingService{
 		//
 		RequestMessage requestMessage = 
 				createRequestMessage("modify", (new Gson()).toJson(newPosting), "PostingDto");
-		ResponseMessage response = null;
 		
+		ResponseMessage response = null;
 		try {
 			response = dispatcher.dispatchReturn(requestMessage);
 		} catch (IOException e) {
@@ -95,8 +95,6 @@ public class PostingServiceStub implements PostingService{
 		}
 		
 		dispatcher.close();
-		
-		System.out.println("Posting modify " + response.getValue());
 	}
 
 	@Override
@@ -104,18 +102,15 @@ public class PostingServiceStub implements PostingService{
 		//
 		RequestMessage requestMessage = 
 				createRequestMessage("remove", postingId, "String");
-		ResponseMessage response = null;
 		
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		
-		System.out.println("Posting remove " + response.getValue());
 	}
 
 	@Override
@@ -123,34 +118,32 @@ public class PostingServiceStub implements PostingService{
 		//
 		RequestMessage requestMessage = 
 				createRequestMessage("removeAllIn", boardId, "String");
-		ResponseMessage response = null;
 		
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		System.out.println("Removed All Posting " + response.getValue());
 	}
 
-	private RequestMessage createRequestMessage(String serviceName, String parameter, String remark) {
+	private RequestMessage createRequestMessage(String operation, String parameter, String remark) {
 		//
 		this.dispatcher = getDispatcher();
-		RequestMessage requestMessage = new RequestMessage(serviceName, parameter);
-		requestMessage.setType(serviceType);
+		RequestMessage requestMessage = new RequestMessage(operation, parameter);
+		requestMessage.setServiceName(serviceName);
 		requestMessage.setRemark(remark);
 		return requestMessage;
 	}
 
-	private RequestMessage createRequestMessage(String serviceName, String parameter1, String parameter2,
+	private RequestMessage createRequestMessage(String operation, String parameter1, String parameter2,
 			String remark1, String remark2) {
 		//
 		this.dispatcher = getDispatcher();
-		RequestMessage requestMessage = new RequestMessage(serviceName, parameter1, parameter2);
-		requestMessage.setType(serviceType);
+		RequestMessage requestMessage = new RequestMessage(operation, parameter1, parameter2);
+		requestMessage.setServiceName(serviceName);
 		requestMessage.setRemarks(remark1, remark2);
 		return requestMessage;
 	}

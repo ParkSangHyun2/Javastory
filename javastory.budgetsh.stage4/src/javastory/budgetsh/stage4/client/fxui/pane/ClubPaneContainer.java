@@ -17,11 +17,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javastory.budgetsh.stage4.client.dto.club.PostingDto;
-import javastory.budgetsh.stage4.client.dto.club.TravelClubDto;
 import javastory.budgetsh.stage4.client.fxui.event.ClubEventHelper;
 import javastory.budgetsh.stage4.client.fxui.util.AlertBox;
 import javastory.budgetsh.stage4.client.fxui.util.ConfirmBox;
+import javastory.budgetsh.stage4.share.domain.club.dto.PostingDto;
+import javastory.budgetsh.stage4.share.domain.club.dto.TravelClubDto;
 
 public class ClubPaneContainer {
 	//

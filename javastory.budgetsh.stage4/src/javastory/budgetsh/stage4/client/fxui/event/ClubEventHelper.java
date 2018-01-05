@@ -3,11 +3,9 @@ package javastory.budgetsh.stage4.client.fxui.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import javastory.budgetsh.stage4.client.dto.club.TravelClubDto;
-import javastory.budgetsh.stage4.client.service.club.ClubService;
-import javastory.budgetsh.stage4.client.service.club.MemberService;
-import javastory.budgetsh.stage4.client.transfer.stub.club.ClubServiceStub;
 import javastory.budgetsh.stage4.client.transfer.stub.club.ServiceLogicLycler;
+import javastory.budgetsh.stage4.share.domain.club.dto.TravelClubDto;
+import javastory.budgetsh.stage4.share.service.club.ClubService;
 
 
 

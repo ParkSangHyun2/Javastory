@@ -2,8 +2,8 @@ package javastory.budgetsh.stage4.client.transfer.stub.budget;
 
 import java.util.Collection;
 
-import javastory.budgetsh.stage4.client.dto.budget.MonthlyDue;
-import javastory.budgetsh.stage4.client.service.budget.AccountMonthlyService;
+import javastory.budgetsh.stage4.share.domain.budget.account.MonthlyDue;
+import javastory.budgetsh.stage4.share.service.budget.AccountMonthlyService;
 
 public class AccountMonthlyServiceStub implements AccountMonthlyService{
 

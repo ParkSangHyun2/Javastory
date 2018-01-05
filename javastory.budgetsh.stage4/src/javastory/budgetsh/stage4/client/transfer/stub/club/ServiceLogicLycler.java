@@ -7,11 +7,11 @@
  */
 package javastory.budgetsh.stage4.client.transfer.stub.club;
 
-import javastory.budgetsh.stage4.client.service.club.BoardService;
-import javastory.budgetsh.stage4.client.service.club.ClubService;
-import javastory.budgetsh.stage4.client.service.club.MemberService;
-import javastory.budgetsh.stage4.client.service.club.PostingService;
-import javastory.budgetsh.stage4.client.service.club.ClubServiceLycler;
+import javastory.budgetsh.stage4.share.service.club.BoardService;
+import javastory.budgetsh.stage4.share.service.club.ClubService;
+import javastory.budgetsh.stage4.share.service.club.ClubServiceLycler;
+import javastory.budgetsh.stage4.share.service.club.MemberService;
+import javastory.budgetsh.stage4.share.service.club.PostingService;
 
 public class ServiceLogicLycler implements ClubServiceLycler {
 	//
@@ -30,7 +30,6 @@ public class ServiceLogicLycler implements ClubServiceLycler {
 		if (lycler == null) {
 			lycler = new ServiceLogicLycler();
 		}
-		
 		return lycler;
 	}
 

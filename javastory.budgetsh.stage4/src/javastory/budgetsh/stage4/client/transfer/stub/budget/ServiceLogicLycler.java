@@ -1,10 +1,10 @@
 package javastory.budgetsh.stage4.client.transfer.stub.budget;
 
-import javastory.budgetsh.stage4.client.service.budget.AccountMonthlyService;
-import javastory.budgetsh.stage4.client.service.budget.AccountYearlyService;
-import javastory.budgetsh.stage4.client.service.budget.CashBookService;
-import javastory.budgetsh.stage4.client.service.budget.BudgetServiceLycler;
-import javastory.budgetsh.stage4.client.service.budget.TransactionService;
+import javastory.budgetsh.stage4.share.service.budget.AccountMonthlyService;
+import javastory.budgetsh.stage4.share.service.budget.AccountYearlyService;
+import javastory.budgetsh.stage4.share.service.budget.BudgetServiceLycler;
+import javastory.budgetsh.stage4.share.service.budget.CashBookService;
+import javastory.budgetsh.stage4.share.service.budget.TransactionService;
 
 public class ServiceLogicLycler implements BudgetServiceLycler {
 	//

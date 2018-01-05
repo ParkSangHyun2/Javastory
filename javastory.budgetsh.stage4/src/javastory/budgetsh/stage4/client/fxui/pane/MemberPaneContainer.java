@@ -21,13 +21,13 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javastory.budgetsh.stage4.client.dto.club.ClubMembershipDto;
-import javastory.budgetsh.stage4.client.dto.club.MemberDto;
-import javastory.budgetsh.stage4.client.dto.club.TravelClubDto;
-import javastory.budgetsh.stage4.client.dto.club.share.RoleInClub;
 import javastory.budgetsh.stage4.client.fxui.event.ClubEventHelper;
 import javastory.budgetsh.stage4.client.fxui.event.MemberEventHelper;
 import javastory.budgetsh.stage4.client.fxui.util.AlertBox;
+import javastory.budgetsh.stage4.share.domain.club.club.RoleInClub;
+import javastory.budgetsh.stage4.share.domain.club.dto.ClubMembershipDto;
+import javastory.budgetsh.stage4.share.domain.club.dto.MemberDto;
+import javastory.budgetsh.stage4.share.domain.club.dto.TravelClubDto;
 
 
 

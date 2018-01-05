@@ -8,21 +8,21 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import javastory.budgetsh.stage4.client.dto.budget.AccountYearlyDue;
-import javastory.budgetsh.stage4.client.dto.budget.MonthlyDue;
-import javastory.budgetsh.stage4.client.service.budget.AccountYearlyService;
 import javastory.budgetsh.stage4.client.transfer.SocketDispatcher;
-import javastory.budgetsh.stage4.message.RequestMessage;
-import javastory.budgetsh.stage4.message.ResponseMessage;
+import javastory.budgetsh.stage4.share.domain.budget.account.AccountYearlyDue;
+import javastory.budgetsh.stage4.share.domain.budget.account.MonthlyDue;
+import javastory.budgetsh.stage4.share.service.budget.AccountYearlyService;
+import javastory.budgetsh.stage4.share.util.RequestMessage;
+import javastory.budgetsh.stage4.share.util.ResponseMessage;
 
 public class AccountYearlyServiceStub implements AccountYearlyService{
 	//
 	private SocketDispatcher dispatcher;
-	private String serviceType;
+	private String serviceName;
 	
 	public AccountYearlyServiceStub() {
 		//
-		serviceType = this.getClass().getInterfaces()[0].getSimpleName();
+		serviceName = this.getClass().getInterfaces()[0].getSimpleName();
 	}
 	
 	@Override
@@ -49,17 +49,15 @@ public class AccountYearlyServiceStub implements AccountYearlyService{
 		//
 		RequestMessage requestMessage = 
 				createRequestMessage("remove", account, "String");
-		ResponseMessage response = null;
-		
+
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		System.out.println("YearlyDue " + response.getValue());
 	}
 
 	@Override
@@ -67,18 +65,15 @@ public class AccountYearlyServiceStub implements AccountYearlyService{
 		//
 		RequestMessage requestMessage = 
 				createRequestMessage("update", (new Gson()).toJson(yearlyDue), "AccountYearlyDue");
-		ResponseMessage response = null;
 		
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		System.out.println("YearlyDue " + response.getValue());
-		
 	}
 
 	@Override
@@ -103,17 +98,15 @@ public class AccountYearlyServiceStub implements AccountYearlyService{
 		//
 		RequestMessage requestMessage = 
 				createRequestMessage("regist", (new Gson()).toJson(yearlyDue), "AccountYearlyDue");
-		ResponseMessage response = null;
 		
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		System.out.println("YearlyDue regist " + response.getValue());
 	}
 
 	@Override
@@ -160,35 +153,33 @@ public class AccountYearlyServiceStub implements AccountYearlyService{
 		//should be modify from logic
 		RequestMessage requestMessage = 
 				createRequestMessage("addMonthlyDue", year, account, month, amount, id, name, type);
-		ResponseMessage response = null;
 		
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		System.out.println(response.getValue());
 	}
 	
-	private RequestMessage createRequestMessage(String serviceName, String parameter, String remark) {
+	private RequestMessage createRequestMessage(String operation, String parameter, String remark) {
 		//
 		this.dispatcher = getDispatcher();
-		RequestMessage requestMessage = new RequestMessage(serviceName, parameter);
-		requestMessage.setType(serviceType);
+		RequestMessage requestMessage = new RequestMessage(operation, parameter);
+		requestMessage.setServiceName(serviceName);
 		requestMessage.setRemark(remark);
 		return requestMessage;
 	}
 	
-	private RequestMessage createRequestMessage(String serviceName, String parameter1, String parameter2,
+	private RequestMessage createRequestMessage(String operation, String parameter1, String parameter2,
 			int parameter3, String parameter4, String parameter5, String parameter6, String parameter7) {
 		//
 		this.dispatcher = getDispatcher();
-		RequestMessage requestMessage = new RequestMessage(serviceName, parameter1, parameter2, parameter3,
+		RequestMessage requestMessage = new RequestMessage(operation, parameter1, parameter2, parameter3,
 			 parameter4, parameter5, parameter6, parameter7);
-		requestMessage.setType(serviceType);
+		requestMessage.setServiceName(serviceName);
 		return requestMessage;
 	}
 

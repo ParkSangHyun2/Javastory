@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javastory.budgetsh.stage4.client.util.ReactFailException;
+import javastory.budgetsh.stage4.share.util.ReactFailException;
 
 public class TravelClubServerReactor extends Thread {
 	//
@@ -40,7 +40,7 @@ public class TravelClubServerReactor extends Thread {
 				synchronized (serverSocket) {
 					System.out.println("Connecting..");
 					clientSocket = serverSocket.accept();
-					clientSocket.setSoTimeout(10000);
+					//clientSocket.setSoTimeout(10000);
 				}
 				
 				pool.execute(new EventRouter(clientSocket));

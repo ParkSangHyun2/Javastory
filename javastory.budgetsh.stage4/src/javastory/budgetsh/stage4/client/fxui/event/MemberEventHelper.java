@@ -3,13 +3,13 @@ package javastory.budgetsh.stage4.client.fxui.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import javastory.budgetsh.stage4.client.dto.club.ClubMembershipDto;
-import javastory.budgetsh.stage4.client.dto.club.MemberDto;
-import javastory.budgetsh.stage4.client.dto.club.TravelClubDto;
-import javastory.budgetsh.stage4.client.dto.club.share.RoleInClub;
-import javastory.budgetsh.stage4.client.service.club.ClubService;
-import javastory.budgetsh.stage4.client.service.club.MemberService;
 import javastory.budgetsh.stage4.client.transfer.stub.club.ServiceLogicLycler;
+import javastory.budgetsh.stage4.share.domain.club.club.RoleInClub;
+import javastory.budgetsh.stage4.share.domain.club.dto.ClubMembershipDto;
+import javastory.budgetsh.stage4.share.domain.club.dto.MemberDto;
+import javastory.budgetsh.stage4.share.domain.club.dto.TravelClubDto;
+import javastory.budgetsh.stage4.share.service.club.ClubService;
+import javastory.budgetsh.stage4.share.service.club.MemberService;
 
 
 

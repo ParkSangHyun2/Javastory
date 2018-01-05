@@ -2,15 +2,15 @@ package javastory.budgetsh.stage4.client.fxui.event;
 
 import java.util.ArrayList;
 
-import javastory.budgetsh.stage4.client.dto.budget.CashBook;
-import javastory.budgetsh.stage4.client.dto.budget.Transaction;
-import javastory.budgetsh.stage4.client.dto.budget.Travel;
-import javastory.budgetsh.stage4.client.dto.share.DatePair;
-import javastory.budgetsh.stage4.client.dto.share.IdName;
-import javastory.budgetsh.stage4.client.dto.share.Socialian;
-import javastory.budgetsh.stage4.client.service.budget.CashBookService;
-import javastory.budgetsh.stage4.client.service.budget.TransactionService;
 import javastory.budgetsh.stage4.client.transfer.stub.budget.ServiceLogicLycler;
+import javastory.budgetsh.stage4.share.domain.budget.budget.CashBook;
+import javastory.budgetsh.stage4.share.domain.budget.budget.Transaction;
+import javastory.budgetsh.stage4.share.domain.budget.travel.Travel;
+import javastory.budgetsh.stage4.share.domain.share.DatePair;
+import javastory.budgetsh.stage4.share.domain.share.IdName;
+import javastory.budgetsh.stage4.share.domain.share.Socialian;
+import javastory.budgetsh.stage4.share.service.budget.CashBookService;
+import javastory.budgetsh.stage4.share.service.budget.TransactionService;
 
 
 public class BudgetEventHelper {

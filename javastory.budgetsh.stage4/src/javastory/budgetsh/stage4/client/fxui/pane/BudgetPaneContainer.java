@@ -19,12 +19,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javastory.budgetsh.stage4.client.dto.budget.CashBook;
-import javastory.budgetsh.stage4.client.dto.club.TravelClubDto;
 import javastory.budgetsh.stage4.client.fxui.event.BudgetEventHelper;
 import javastory.budgetsh.stage4.client.fxui.event.ClubEventHelper;
 import javastory.budgetsh.stage4.client.fxui.util.AlertBox;
 import javastory.budgetsh.stage4.client.fxui.util.ConfirmBox;
+import javastory.budgetsh.stage4.share.domain.budget.budget.CashBook;
+import javastory.budgetsh.stage4.share.domain.club.dto.TravelClubDto;
 
 
 

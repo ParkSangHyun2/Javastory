@@ -2,7 +2,6 @@ package javastory.budgetsh.stage4.client.fxui.pane;
 
 import java.time.Year;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,16 +16,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javastory.budgetsh.stage4.client.dto.budget.AccountYearlyDue;
-import javastory.budgetsh.stage4.client.dto.budget.CashBook;
-import javastory.budgetsh.stage4.client.dto.budget.DuesType;
-import javastory.budgetsh.stage4.client.dto.budget.MonthlyDue;
-import javastory.budgetsh.stage4.client.dto.share.IdName;
 import javastory.budgetsh.stage4.client.fxui.SceneContainer;
 import javastory.budgetsh.stage4.client.fxui.event.BudgetEventHelper;
 import javastory.budgetsh.stage4.client.fxui.event.YearlyDueEventHelper;
 import javastory.budgetsh.stage4.client.fxui.util.AlertBox;
 import javastory.budgetsh.stage4.client.fxui.util.ConfirmBox;
+import javastory.budgetsh.stage4.share.domain.budget.account.DuesType;
+import javastory.budgetsh.stage4.share.domain.budget.account.MonthlyDue;
+import javastory.budgetsh.stage4.share.domain.budget.budget.CashBook;
+import javastory.budgetsh.stage4.share.domain.share.IdName;
 
 
 public class YearlyDuePaneContainer {
@@ -81,12 +79,12 @@ public class YearlyDuePaneContainer {
 		TableColumn<MonthlyDue, Integer> monthColumn = new TableColumn<>("Month");
 		monthColumn.setMinWidth(120);
 		monthColumn.setCellValueFactory(new PropertyValueFactory<>("month"));
-		monthColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
+		monthColumn.setStyle("-fx-alignment: CENTER;");
 
 		TableColumn<MonthlyDue, DuesType> typeColumn = new TableColumn<>("Type");
 		typeColumn.setMinWidth(120);
 		typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-		typeColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
+		typeColumn.setStyle("-fx-alignment: CENTER;");
 
 		TableColumn<MonthlyDue, Double> amountColumn = new TableColumn<>("Amount");
 		amountColumn.setMinWidth(120);
@@ -101,7 +99,7 @@ public class YearlyDuePaneContainer {
 		TableColumn<MonthlyDue, IdName> travelColumn = new TableColumn<>("Travel");
 		travelColumn.setMinWidth(120);
 		travelColumn.setCellValueFactory(new PropertyValueFactory<>("travel"));
-		travelColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
+		travelColumn.setStyle("-fx-alignment: CENTER;");
 
 		monthlyDueTable.getColumns().addAll(monthColumn, typeColumn, amountColumn, currencyCodeColumn, travelColumn);
 

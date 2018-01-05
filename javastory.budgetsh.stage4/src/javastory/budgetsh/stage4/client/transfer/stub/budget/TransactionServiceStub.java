@@ -8,37 +8,35 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import javastory.budgetsh.stage4.client.dto.budget.Transaction;
-import javastory.budgetsh.stage4.client.service.budget.TransactionService;
 import javastory.budgetsh.stage4.client.transfer.SocketDispatcher;
-import javastory.budgetsh.stage4.message.RequestMessage;
-import javastory.budgetsh.stage4.message.ResponseMessage;
+import javastory.budgetsh.stage4.share.domain.budget.budget.Transaction;
+import javastory.budgetsh.stage4.share.service.budget.TransactionService;
+import javastory.budgetsh.stage4.share.util.RequestMessage;
+import javastory.budgetsh.stage4.share.util.ResponseMessage;
 
 public class TransactionServiceStub implements TransactionService{
 	//
 	private SocketDispatcher dispatcher;
-	private String serviceType;
+	private String serviceName;
 	
 	public TransactionServiceStub() {
 		//
-		serviceType = this.getClass().getInterfaces()[0].getSimpleName();
+		serviceName = this.getClass().getInterfaces()[0].getSimpleName();
 	}
 	@Override
 	public void remove(String id) {
 		//
 		RequestMessage requestMessage = 
 				createRequestMessage("remove", id, "String");
-		ResponseMessage response = null;
 		
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		System.out.println("Transaction remove " + response.getValue());
 	}
 
 	@Override
@@ -46,17 +44,15 @@ public class TransactionServiceStub implements TransactionService{
 		//
 		RequestMessage requestMessage = 
 				createRequestMessage("update", (new Gson()).toJson(transaction), "Transaction");
-		ResponseMessage response = null;
 		
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		System.out.println("Transaction update " + response.getValue());
 	}
 
 	@Override
@@ -132,21 +128,21 @@ public class TransactionServiceStub implements TransactionService{
 		return (ArrayList<Transaction>)foundTransactionList;
 	}
 	
-	private RequestMessage createRequestMessage(String serviceName, String parameter, String remark) {
+	private RequestMessage createRequestMessage(String operation, String parameter, String remark) {
 		//
 		this.dispatcher = getDispatcher();
-		RequestMessage requestMessage = new RequestMessage(serviceName, parameter);
-		requestMessage.setType(serviceType);
+		RequestMessage requestMessage = new RequestMessage(operation, parameter);
+		requestMessage.setServiceName(serviceName);
 		requestMessage.setRemark(remark);
 		return requestMessage;
 	}
 
-	private RequestMessage createRequestMessage(String serviceName, String parameter1, String parameter2,
+	private RequestMessage createRequestMessage(String operation, String parameter1, String parameter2,
 			String remark1, String remark2) {
 		//
 		this.dispatcher = getDispatcher();
-		RequestMessage requestMessage = new RequestMessage(serviceName, parameter1, parameter2);
-		requestMessage.setType(serviceType);
+		RequestMessage requestMessage = new RequestMessage(operation, parameter1, parameter2);
+		requestMessage.setServiceName(serviceName);
 		requestMessage.setRemarks(remark1, remark2);
 		return requestMessage;
 	}

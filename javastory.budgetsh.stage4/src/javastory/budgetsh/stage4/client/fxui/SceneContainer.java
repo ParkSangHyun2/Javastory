@@ -16,14 +16,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javastory.budgetsh.stage4.client.dto.budget.CashBook;
-import javastory.budgetsh.stage4.client.dto.club.PostingDto;
-import javastory.budgetsh.stage4.client.dto.club.TravelClubDto;
 import javastory.budgetsh.stage4.client.fxui.event.BoardEventHelper;
 import javastory.budgetsh.stage4.client.fxui.event.BudgetEventHelper;
 import javastory.budgetsh.stage4.client.fxui.event.ClubEventHelper;
 import javastory.budgetsh.stage4.client.fxui.event.YearlyDueEventHelper;
 import javastory.budgetsh.stage4.client.fxui.util.AlertBox;
+import javastory.budgetsh.stage4.share.domain.budget.budget.CashBook;
+import javastory.budgetsh.stage4.share.domain.club.dto.PostingDto;
+import javastory.budgetsh.stage4.share.domain.club.dto.TravelClubDto;
 
 public class SceneContainer {
 	//

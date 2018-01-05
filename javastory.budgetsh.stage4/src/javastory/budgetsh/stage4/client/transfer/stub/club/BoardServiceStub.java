@@ -7,20 +7,20 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import javastory.budgetsh.stage4.client.dto.club.BoardDto;
-import javastory.budgetsh.stage4.client.service.club.BoardService;
 import javastory.budgetsh.stage4.client.transfer.SocketDispatcher;
-import javastory.budgetsh.stage4.message.RequestMessage;
-import javastory.budgetsh.stage4.message.ResponseMessage;
+import javastory.budgetsh.stage4.share.domain.club.dto.BoardDto;
+import javastory.budgetsh.stage4.share.service.club.BoardService;
+import javastory.budgetsh.stage4.share.util.RequestMessage;
+import javastory.budgetsh.stage4.share.util.ResponseMessage;
 
 public class BoardServiceStub implements BoardService{
 	//
 	private SocketDispatcher dispatcher;
-	private String serviceType;
+	private String serviceName;
 	
 	public BoardServiceStub() {
 		//
-		serviceType = this.getClass().getInterfaces()[0].getSimpleName();
+		serviceName = this.getClass().getInterfaces()[0].getSimpleName();
 	}
 	
 	@Override
@@ -104,17 +104,15 @@ public class BoardServiceStub implements BoardService{
 		//
 		RequestMessage requestMessage = 
 				createRequestMessage("modify", (new Gson()).toJson(board), "BoardDto");
-		ResponseMessage response = null;
 		
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		System.out.println("Board modify " + response.getValue());
 	}
 
 	@Override
@@ -122,24 +120,22 @@ public class BoardServiceStub implements BoardService{
 		//
 		RequestMessage requestMessage = 
 				createRequestMessage("remove", boardId, "String");
-		ResponseMessage response = null;
-		
+
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		System.out.println("Board remove " + response.getValue());
 	}
 	
-	private RequestMessage createRequestMessage(String serviceName, String parameter, String remark) {
+	private RequestMessage createRequestMessage(String operation, String parameter, String remark) {
 		//
 		this.dispatcher = getDispatcher();
-		RequestMessage requestMessage = new RequestMessage(serviceName, parameter);
-		requestMessage.setType(serviceType);
+		RequestMessage requestMessage = new RequestMessage(operation, parameter);
+		requestMessage.setServiceName(serviceName);
 		requestMessage.setRemark(remark);
 		return requestMessage;
 	}

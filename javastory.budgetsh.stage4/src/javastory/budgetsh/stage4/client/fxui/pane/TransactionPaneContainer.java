@@ -20,16 +20,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javastory.budgetsh.stage4.client.dto.budget.CashBook;
-import javastory.budgetsh.stage4.client.dto.budget.Transaction;
-import javastory.budgetsh.stage4.client.dto.share.IdName;
-import javastory.budgetsh.stage4.client.dto.tran.Expense;
-import javastory.budgetsh.stage4.client.dto.tran.Forward;
-import javastory.budgetsh.stage4.client.dto.tran.Revenue;
-import javastory.budgetsh.stage4.client.dto.tran.TranItem;
-import javastory.budgetsh.stage4.client.dto.tran.TranType;
 import javastory.budgetsh.stage4.client.fxui.event.BudgetEventHelper;
 import javastory.budgetsh.stage4.client.fxui.util.ConfirmBox;
+import javastory.budgetsh.stage4.share.domain.budget.budget.CashBook;
+import javastory.budgetsh.stage4.share.domain.budget.budget.Transaction;
+import javastory.budgetsh.stage4.share.domain.budget.budget.tran.Expense;
+import javastory.budgetsh.stage4.share.domain.budget.budget.tran.Forward;
+import javastory.budgetsh.stage4.share.domain.budget.budget.tran.Revenue;
+import javastory.budgetsh.stage4.share.domain.budget.budget.tran.TranItem;
+import javastory.budgetsh.stage4.share.domain.budget.budget.tran.TranType;
+import javastory.budgetsh.stage4.share.domain.share.IdName;
 
 
 public class TransactionPaneContainer {

@@ -7,21 +7,21 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import javastory.budgetsh.stage4.client.dto.club.MemberDto;
-import javastory.budgetsh.stage4.client.service.club.MemberService;
 import javastory.budgetsh.stage4.client.transfer.SocketDispatcher;
-import javastory.budgetsh.stage4.message.RequestMessage;
-import javastory.budgetsh.stage4.message.ResponseMessage;
-import javastory.budgetsh.stage4.server.club.util.InvalidEmailException;
+import javastory.budgetsh.stage4.share.domain.club.dto.MemberDto;
+import javastory.budgetsh.stage4.share.service.club.MemberService;
+import javastory.budgetsh.stage4.share.util.InvalidEmailException;
+import javastory.budgetsh.stage4.share.util.RequestMessage;
+import javastory.budgetsh.stage4.share.util.ResponseMessage;
 
 public class MemberServiceStub implements MemberService{
 	//
 	private SocketDispatcher dispatcher;
-	private String serviceType;
+	private String serviceName;
 	
 	
 	public MemberServiceStub() {
-		this.serviceType = (this.getClass().getInterfaces())[0].getSimpleName();
+		this.serviceName = (this.getClass().getInterfaces())[0].getSimpleName();
 	}
 
 	@Override
@@ -84,17 +84,15 @@ public class MemberServiceStub implements MemberService{
 		//
 		RequestMessage requestMessage = 
 				createRequestMessage("modify", (new Gson()).toJson(member),"MemberDto");
-		ResponseMessage response = null;
 		
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		System.out.println(response.getValue());
 	}
 
 	@Override
@@ -102,24 +100,22 @@ public class MemberServiceStub implements MemberService{
 		// 		
 		RequestMessage requestMessage = 
 		createRequestMessage("remove", memberId,"MemberDto");
-		ResponseMessage response = null;
-
+		
 		try {
-			response = dispatcher.dispatchReturn(requestMessage);
+			dispatcher.dispatchVoid(requestMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		dispatcher.close();
-		System.out.println(response.getValue());
 	}
 	
-	private RequestMessage createRequestMessage(String serviceName, String parameter, String remark) {
+	private RequestMessage createRequestMessage(String operation, String parameter, String remark) {
 		//
 		this.dispatcher = getDispatcher();
-		RequestMessage requestMessage = new RequestMessage(serviceName, parameter);
-		requestMessage.setType(serviceType);
+		RequestMessage requestMessage = new RequestMessage(operation, parameter);
+		requestMessage.setServiceName(serviceName);
 		requestMessage.setRemark(remark);
 		return requestMessage;
 	}
