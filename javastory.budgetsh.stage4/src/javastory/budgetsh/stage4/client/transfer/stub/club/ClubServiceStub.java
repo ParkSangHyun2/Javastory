@@ -95,7 +95,7 @@ public class ClubServiceStub implements ClubService {
 			//
 			e.printStackTrace();
 		}
-
+		System.out.println(response.getValue());
 		dispatcher.close();
 	}
 
@@ -114,6 +114,7 @@ public class ClubServiceStub implements ClubService {
 		}
 
 		dispatcher.close();
+		System.out.println(response.getValue());
 	}
 
 	@Override
@@ -187,6 +188,7 @@ public class ClubServiceStub implements ClubService {
 		}
 
 		dispatcher.close();
+		System.out.println(response.getValue());
 	}
 
 	@Override
@@ -204,6 +206,7 @@ public class ClubServiceStub implements ClubService {
 		}
 
 		dispatcher.close();
+		System.out.println(response.getValue());
 	}
 
 	@Override

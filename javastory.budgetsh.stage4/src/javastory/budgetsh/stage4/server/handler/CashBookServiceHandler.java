@@ -42,18 +42,21 @@ public class CashBookServiceHandler implements ServiceHandler {
 		String bankAccount;
 		CashBook cashbook;
 		String responseValue = null;
+		boolean success = true;
 		
 		switch(serviceName) {
 		case "exist":
 			bankAccount = request.getValue();
-			cashbookService.exist(bankAccount);
-			responseValue = "exist";
+			if(!cashbookService.exist(bankAccount)) {
+				success = false;
+			}
 			break;
 			
 		case "regist":
 			cashbook = (new Gson()).fromJson(request.getValue(), CashBook.class);
-			cashbookService.regist(cashbook);
-			responseValue = "regist";
+			if(!cashbookService.regist(cashbook)) {
+				success = false;
+			}
 			break;
 			
 		case "retrieve":
@@ -79,7 +82,9 @@ public class CashBookServiceHandler implements ServiceHandler {
 			responseValue = (new Gson()).toJson(foundCashbookList);
 			break;
 		}
-		return new ResponseMessage(serviceName, responseValue);
+		ResponseMessage responseMessage = new ResponseMessage(serviceName, responseValue);
+		responseMessage.setSuccess(success);
+		return responseMessage;
 	}
 
 }

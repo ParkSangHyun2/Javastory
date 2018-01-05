@@ -120,8 +120,20 @@ public class PostingServiceStub implements PostingService{
 
 	@Override
 	public void removeAllIn(String boardId) {
-		// TODO Auto-generated method stub
+		//
+		RequestMessage requestMessage = 
+				createRequestMessage("removeAllIn", boardId, "String");
+		ResponseMessage response = null;
 		
+		try {
+			response = dispatcher.dispatchReturn(requestMessage);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dispatcher.close();
+		System.out.println("Removed All Posting " + response.getValue());
 	}
 
 	private RequestMessage createRequestMessage(String serviceName, String parameter, String remark) {

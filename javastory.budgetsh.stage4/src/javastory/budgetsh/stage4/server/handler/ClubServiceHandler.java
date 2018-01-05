@@ -34,15 +34,14 @@ public class ClubServiceHandler implements ServiceHandler{
 		String responseValue = null;
 		String clubId, memberId, clubName;
 		TravelClubDto club;
+		boolean success = true;
 		
 		switch(serviceName) {
 		case "registerClub":
 			String json = request.getValue();
 			club = (new Gson()).fromJson(json, TravelClubDto.class);
-			if(clubService.registerClub(club)) {
-				responseValue = "success";
-			} else {
-				responseValue = "fail";
+			if(!clubService.registerClub(club)) {
+				success = false;
 			}
 			break;
 			
@@ -72,10 +71,8 @@ public class ClubServiceHandler implements ServiceHandler{
 			
 		case "addMembership":
 			ClubMembershipDto membershipDto = (new Gson()).fromJson(request.getValue(), ClubMembershipDto.class);
-			if(clubService.addMembership(membershipDto)) {
-				responseValue = "success";
-			} else {
-				responseValue = "fail";
+			if(!clubService.addMembership(membershipDto)) {
+				success = false;
 			}
 			break;
 			
@@ -99,11 +96,7 @@ public class ClubServiceHandler implements ServiceHandler{
 			ClubMembershipDto modifiedMembership = 
 					(new Gson()).fromJson(request.getValues()[1], ClubMembershipDto.class);
 			clubService.modifyMembership(clubId, modifiedMembership);
-			if(modifiedMembership == null) {
-				responseValue = "success";
-			} else {
-				responseValue = "fail";
-			}
+			responseValue = "success";
 			break;
 			
 		case "removeMembership":
@@ -119,8 +112,9 @@ public class ClubServiceHandler implements ServiceHandler{
 			responseValue = (new Gson()).toJson(allMembers);
 			break;
 		}
-
-		return new ResponseMessage(request.getServiceName(), responseValue);
+		ResponseMessage responseMessage = new ResponseMessage(serviceName, responseValue);
+		responseMessage.setSuccess(success);
+		return responseMessage;
 	}
 
 }			

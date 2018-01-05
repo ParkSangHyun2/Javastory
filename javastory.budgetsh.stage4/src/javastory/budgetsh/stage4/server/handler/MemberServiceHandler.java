@@ -34,14 +34,13 @@ public class MemberServiceHandler implements ServiceHandler {
 		String memberId, memberName;
 		MemberDto memberDto;
 		String responseValue = null;
+		boolean success = true;
 		
 		switch(serviceName) {
 		case "register":
 			memberDto = (new Gson()).fromJson(request.getValue(), MemberDto.class);
-			if(memberService.register(memberDto)) {
-				responseValue = "success";
-			}else {
-				responseValue = "fail";
+			if(!memberService.register(memberDto)) {
+				success = false;
 			}
 			break;
 			
@@ -67,8 +66,9 @@ public class MemberServiceHandler implements ServiceHandler {
 			memberService.remove(memberId);
 			break;
 		}
-		
-		return new ResponseMessage(request.getServiceName(), responseValue);
+		ResponseMessage responseMessage = new ResponseMessage(serviceName, responseValue);
+		responseMessage.setSuccess(success);
+		return responseMessage;
 	}
 
 }

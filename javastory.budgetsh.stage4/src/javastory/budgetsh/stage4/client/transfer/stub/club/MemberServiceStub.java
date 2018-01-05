@@ -94,6 +94,7 @@ public class MemberServiceStub implements MemberService{
 		}
 		
 		dispatcher.close();
+		System.out.println(response.getValue());
 	}
 
 	@Override
@@ -111,6 +112,7 @@ public class MemberServiceStub implements MemberService{
 		}
 		
 		dispatcher.close();
+		System.out.println(response.getValue());
 	}
 	
 	private RequestMessage createRequestMessage(String serviceName, String parameter, String remark) {

@@ -170,6 +170,7 @@ public class AccountYearlyServiceStub implements AccountYearlyService{
 		}
 		
 		dispatcher.close();
+		System.out.println(response.getValue());
 	}
 	
 	private RequestMessage createRequestMessage(String serviceName, String parameter, String remark) {
