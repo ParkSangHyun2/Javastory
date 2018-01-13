@@ -2,198 +2,202 @@ const co = require('co');
 const prompt = require('co-prompt');
 const AccountYearlyDue = require('../../domain/account/AccountYearlyDue.js');
 const IdName = require('../../domain/share/IdName.js');
-const AccountStore = require('../../store/accountStore.js');
 const MonthlyDue = require('../../domain/account/MonthlyDue.js');
-const accountStore = new AccountStore();
 const MainMenu = require('../menu/MainMenu.js');
+const AccountService = require('../../logic/AccountService.js');
 
-class AccountConsole {
-	constructor() {
-		this.account = '';
-		this.year = 0;
-		this.name = '';
-		this.yearlyDue = null;
-		this.monthlyDue = null;
+exports.register = function() {
+	let yearlyDue = null;
+	let account = '';
+	let name = '';
+	let year = '';
 
-		this.month = 0;
-		this.amount = 0;
-		this.travel = null;
-		this.currentYearlyDue = null;
-		this.account = '';
-		this.type = '';
-	}
+	co(function*() {
+		account = yield prompt('\n Account: ');
+		
+		if (AccountService.exist(account)) {
+			console.log("\n  >Already exist Account Number--> " + this.account);
+			MainMenu.selectAccountMenu();
+			return;
+		}
+		name = yield prompt('\n MemberName: ');
+		year = parseInt((yield prompt('\n Year: ')),10);
+		yearlyDue = new AccountYearlyDue(new IdName(account, name), year);
 
-	register(previousMenu) {
-		var yearlyDue = null;
-
-		co(function*() {
-			this.account = yield prompt('\n Account: ');
-
-			if (accountStore.exist(this.account)) {
-				console.log("\n  >Already exist Account Number--> " + this.account);
-			}
-			this.name = yield prompt('\n MemberName: ');
-			this.year = Number(yield prompt('\n Year: '));
-			yearlyDue = new AccountYearlyDue(new IdName(this.account, this.name), this.year);
-
-			accountStore.regist(yearlyDue);
+		if(AccountService.regist(yearlyDue)){
 			console.log('> Registed--> ');
 			yearlyDue.accountYearlyDue();
-			//previousMenu.show();
 			MainMenu.selectAccountMenu();
-			return this.yearlyDue;
-		});
-	}
-
-	find(previousMenu) {
-		var foundYearlyDue = null;
-		co(function*() {
-			this.account = yield prompt('\n Account: ');
-
-			if (!accountStore.exist(this.account)) {
-				console.log('\n > No yearlyDue in storage');
-				//previousMenu.show();
-				MainMenu.selectAccountMenu();
-				return;
-			}
-
-			foundYearlyDue = accountStore.retrieve(this.account);
-			console.log('Found YearlyDue: ');
-			foundYearlyDue.accountYearlyDue();
-			//previousMenu.show();
-			MainMenu.selectAccountMenu();
-			return foundYearlyDue;
-		});
-	}
-
-	modify(previousMenu) {
-		var yearlyDue = null;
-		co(function*() {
-			this.account = yield prompt('\n Account: ');
-
-			if (!accountStore.exist(this.account)) {
-				console.log('\n > No yearlyDue in storage');
-				this.modify(previousMenu);
-			}
-
-			this.name = yield prompt('\n Name: ');
-			this.year = Number(yield prompt('\n Year: '));
-
-			yearlyDue = new AccountYearlyDue(new IdName(this.account, this.name), this.year);
-			console.log('> modified --> ');
-			yearlyDue.accountYearlyDue();
-			accountStore.update(yearlyDue);
-			//previousMenu.show(previousMenu);
-			MainMenu.selectAccountMenu();
-		});
-	}
-	remove(previousMenu) {
-		var account = '';
-		co(function*() {
-			account = yield prompt('\n> Account: ');
-			accountStore.remove(account);
-			if (!accountStore.exist(account)) {
-				console.log('Removed..');
-			} else {
-				console.log('Failed to delete..');
-			}
-			//previousMenu.show();
-			MainMenu.selectAccountMenu();
-		});
-	}
-
-	addMonthlyDue(previousMenu) {
-		co(function*() {
-			this.account = yield prompt('> Account: ');
-			this.currentYearlyDue = accountStore.retrieve(this.account);
-			if (this.currentYearlyDue == null) {
-				console.log('select YearlyDue');
-				//previousMenu.show(previousMenu);
-				MainMenu.selectAccountMenu();
-				return;
-			}
-
-			this.month = yield prompt('> Month: ');
-			this.amount = yield prompt('> Amount: ');
-			this.type = yield prompt('>Type(Revenue,Expense,Forward): ')
-
-			var foundYearlyDue = accountStore.retrieve(this.currentYearlyDue.member.id);
-			var foundAccount = foundYearlyDue.member.id;
-			var foundAccountName = foundYearlyDue.member.name;
-			this.travel = new IdName(foundAccount, foundAccountName);
-			this.monthlyDue = new MonthlyDue(this.month, this.amount, this.travel);
-			this.monthlyDue.type = this.type;
-			foundYearlyDue.addMonthlyDue(monthlyDue);
-			accountStore.update(foundYearlyDue);
-			console.log('Registed..');
-			//previousMenu.show(previousMenu);
-			MainMenu.selectAccountMenu();
-		});
-	}
-	
-	removeMonthlyDue(previousMenu){
-		//
-		co(function*(){
-			this.account = yield prompt('> Account: ');
-			this.currentYearlyDue = accountStore.retrieve(this.account);
-			if(this.currentYearlyDue == null){
-				console.log('invalid Account..');
-				//previousMenu.show(previousMenu);
-				MainMenu.selectAccountMenu();
-				return;
-			}
-			var targetMonth = '';
-			targetMonth = yield prompt('> Month to delete: ');
-			var removeIndex = -1;
-			for (var i = 0; i < this.currentYearlyDue.monthlyDues.length; i++) {
-				if(targetMonth == this.currentYearlyDue.monthlyDues[i].month){
-					removeIndex = i;
-				}
-			}
-			if(removeIndex == -1){
-				console.log('invalid Month..');
-				//previousMenu.show(previousMenu);
-				MainMenu.selectAccountMenu();
-				return;
-			}
-			if(removeIndex == this.currentYearlyDue.monthlyDues.length-1){
-				this.currentYearlyDue.monthlyDues[removeIndex] = null;
-				accountStore.update(this.currentYearlyDue);
-				//previousMenu.show(previousMenu);
-				MainMenu.selectAccountMenu();
-				return;
-			}
-			for(var j = removeIndex; j<this.currentYearlyDue.monthlyDues.length-1; j++){
-				this.currentYearlyDue.monthlyDues[j] = this.currentYearlyDue.monthlyDues[j+1];
-			}
-			this.currentYearlyDue.monthlyDues[this.cuttentYearlyDue.monthlyDues.length-1] = null;
-			accountStore.update(this.currentYearlyDue);
-			//previousMenu.show(previousMenu);
-			MainMenu.selectAccountMenu();
-		});
-	}
-
-	findAllMonthlyDue(previousMenu) {
-		co(function*(){
-			this.account = yield prompt('> Account: ');
-			this.currentYearlyDue = accountStore.retrieve(this.account);
-			if(this.currentYearlyDue == null){
-				console.log('invalid Account..');
-				//previousMenu.show(previousMenu);
-				MainMenu.selectAccountMenu();
-				return;
-			}
-			for (var i = 0; i < this.currentYearlyDue.monthlyDues.length; i++) {
-				if(this.currentYearlyDue.monthlyDues[i] == null){
-					break;
-				}
-				this.currentYearlyDue.monthlyDues[i].monthlyDue();
-			}
-			//previousMenu.show(previousMenu);
-			MainMenu.selectAccountMenu();
-		});
-
-	}
+			return yearlyDue;
+		}else{
+			console.log('> Fail to Regist..');
+			MainMenu.seleteAccountMenu();
+			return null;
+		}
+	});
 }
 
-module.exports = AccountConsole;
+exports.find = function() {
+	let foundYearlyDue = null;
+	let account = '';
+	
+	co(function*() {
+		account = yield prompt('\n Account: ');
+
+		if (!AccountService.exist(account)) {
+			console.log('\n > No yearlyDue in storage');
+			MainMenu.selectAccountMenu();
+			return;
+		}
+
+		foundYearlyDue = AccountService.retrieve(account);
+		console.log('Found YearlyDue --> ');
+		foundYearlyDue.accountYearlyDue();
+		MainMenu.selectAccountMenu();
+		return foundYearlyDue;
+	});
+}
+
+exports.modify = function() {
+	let yearlyDue = null;
+	let account = '';
+	let name = '';
+	let year = '';
+	
+	co(function*() {
+		account = yield prompt('\n Account: ');
+
+		if (!AccountService.exist(account)) {
+			console.log('\n > No yearlyDue in storage');
+			MainMenu.selectAccountMenu();
+			return;
+		}
+
+		name = yield prompt('\n Name: ');
+		year = parseInt((yield prompt('\n Year: ')), 10);
+
+		yearlyDue = new AccountYearlyDue(new IdName(account, name), year);
+
+		if(AccountService.update(yearlyDue)){
+			console.log('> modified --> ');
+			yearlyDue.accountYearlyDue();
+		}else{
+			console.log('> fail to update..');
+		}
+		MainMenu.selectAccountMenu();
+	});
+}
+
+exports.remove = function() {
+	let account = '';
+	co(function*() {
+		account = yield prompt('\n> Account: ');
+		AccountService.remove(account);
+		if (!AccountService.exist(account)) {
+			console.log('Removed..');
+		} else {
+			console.log('Failed to delete..');
+		}
+		MainMenu.selectAccountMenu();
+	});
+}
+
+exports.addMonthlyDue = function() {
+	let account = '';
+	let currentYearlyDue = null;
+	let travel = null;
+	let monthlyDue = null;
+	let month = '';
+	let amount = '';
+	let type = '';
+	
+	
+	co(function*() {
+		account = yield prompt('> Account: ');
+		currentYearlyDue = AccountService.retrieve(account);
+		if (currentYearlyDue == null) {
+			console.log('select YearlyDue');
+			MainMenu.selectAccountMenu();
+			return;
+		}
+
+		month = yield prompt('> Month: ');
+		if(month<1 || month>12){
+			console.log('invalid Month..');
+			MainMenu.selectAccountMenu();
+			return;
+		}
+		
+		if(AccountService.existMonth(currentYearlyDue, month)){
+			console.log('Already exist Month..');
+			MainMenu.selectAccountMenu();
+			return;
+		}
+		
+		amount = yield prompt('> Amount: ');
+		type = yield prompt('>Type(Revenue,Expense,Forward): ')
+
+		let foundYearlyDue = AccountService.retrieve(currentYearlyDue.member.id);
+		let foundAccount = foundYearlyDue.member.id;
+		let foundAccountName = foundYearlyDue.member.name;
+		
+		travel = new IdName(foundAccount, foundAccountName);
+		monthlyDue = new MonthlyDue(month, amount, travel);
+		monthlyDue.type = type;
+		foundYearlyDue.addMonthlyDue(monthlyDue);
+		AccountService.update(foundYearlyDue);
+		console.log('Registed -->');
+		foundYearlyDue.accountYearlyDue();
+		MainMenu.selectAccountMenu();
+	});
+}
+
+exports.removeMonthlyDue = function(){
+	//
+	let account = '';
+	let currentYearlyDue = null;
+	
+	co(function*(){
+		account = yield prompt('> Account: ');
+		currentYearlyDue = AccountService.retrieve(account);
+		if(currentYearlyDue == null){
+			console.log('invalid Account..');
+			MainMenu.selectAccountMenu();
+			return;
+		}
+		
+		let targetMonth = '';
+		targetMonth = yield prompt('> Month to delete: ');
+		
+		if(AccountService.removeMonthlyDue(currentYearlyDue, targetMonth)){
+			console.log('Removed Month--->' + targetMonth);
+		}else{
+			console.log('fail to Remove Month..');
+			
+		}
+		MainMenu.selectAccountMenu();
+	});
+}
+
+exports.findAllMonthlyDue = function() {
+	let account = '';
+	let currentYearlyDue = null;
+	let monthlyDues = null;
+	
+	co(function*(){
+		account = yield prompt('> Account: ');
+		
+		monthlyDues = AccountService.findAllMonthlyDue(account);
+		if(monthlyDues == null){
+			console.log('Invalid Account..');
+			MainMenu.selectAccountMenu();
+			return;
+		}
+		
+		for(let i =0; i < monthlyDues.length; i++){
+			monthlyDues[i].monthlyDue();
+		}
+		MainMenu.selectAccountMenu();
+	});
+
+}

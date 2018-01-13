@@ -6,9 +6,8 @@ const AccountConsole = require('../console/AccountConsole.js');
 
 const cashbookConsole = new CashBookConsole();
 const transactionConsole = new TransactionConsole();
-const accountConsole = new AccountConsole();
 
-selectMainMenu();
+start();
 
 function showMainMenu() {
 	console.log("\n------------------------------");
@@ -36,7 +35,7 @@ function showCashbookMenu() {
 
 function showTransactionMenu() {
 	console.log("\n------------------------------");
-	console.log('Transaction Menu')
+	console.log('Transaction Menu');
 	console.log("------------------------------");
 	console.log(" 1. register");
 	console.log(" 2. find");
@@ -57,8 +56,7 @@ function showAccountMenu() {
 	console.log("------------------------------");
 	console.log(" 5. add monthly Due");
 	console.log(" 6. remove monthly Due");
-	console.log(" 7. modify monthly Due");
-	console.log(" 8. findAll monthly Due");
+	console.log(" 7. findAll monthly Due");
 	console.log("------------------------------");
 	console.log(" 0. Previous Menu");
 }
@@ -76,6 +74,7 @@ function selectMainMenu() {
 			exports.selectAccountMenu();
 			break;
 		case 0:
+			console.log('Exit...');
 			process.exit();
 			break;
 		default:
@@ -152,36 +151,37 @@ exports.selectAccountMenu = function () {
 		inputNumber = parseInt(inputNumber,10);
 		switch (inputNumber) {
 		case 1:
-			accountConsole.register();
+			AccountConsole.register();
 			break;
 		case 2:
-			accountConsole.find();
+			AccountConsole.find();
 			break;
 		case 3:
-			accountConsole.modify();
+			AccountConsole.modify();
 			break;
 		case 4:
-			accountConsole.remove();
+			AccountConsole.remove();
 			break;
 		case 5:
-			accountConsole.addMonthlyDue();
+			AccountConsole.addMonthlyDue();
 			break;
 		case 6:
-			accountConsole.removeMonthlyDue();
+			AccountConsole.removeMonthlyDue();
 			break;
 		case 7:
-			//accountMonthlyConsole.modify(currentYearlyDue);
-			break;
-		case 8:
-			accountConsole.findAllMonthlyDue();
+			AccountConsole.findAllMonthlyDue();
 			break;
 		case 0:
-			exports.selectCashbookMenu();
+			selectMainMenu();
 			break;
 
 		default:
-			exports.selectCashbookMenu();
+			selectMainMenu();
 			break;
 		}
 	});
+}
+
+function start(){
+	selectMainMenu();
 }
