@@ -1,11 +1,9 @@
 const co = require('co');
 const prompt = require('co-prompt');
-const CashBookConsole = require('../console/CashBookConsole.js');
+const CashbookConsole = require('../console/CashBookConsole.js');
 const TransactionConsole = require('../console/TransactionConsole.js');
 const AccountConsole = require('../console/AccountConsole.js');
-
-const cashbookConsole = new CashBookConsole();
-const transactionConsole = new TransactionConsole();
+var currentAccount = '';
 
 start();
 
@@ -19,9 +17,14 @@ function showMainMenu() {
 	console.log(" 0. exit");
 }
 
-function showCashbookMenu() {
+function showCashbookMenu(bankAccount) {
+	currentAccount = bankAccount;
 	console.log("\n------------------------------");
-	console.log("CashBook Menu");
+	if(currentAccount == ''){
+		console.log("CashBook Menu( NULL )");
+	}else{
+		console.log("CashBook Menu("+ bankAccount +")");	
+	}
 	console.log("------------------------------");
 	console.log(" 1. register");
 	console.log(" 2. find");
@@ -33,9 +36,9 @@ function showCashbookMenu() {
 	console.log(" 0. Previous Menu");
 }
 
-function showTransactionMenu() {
+function showTransactionMenu(currentAccount) {
 	console.log("\n------------------------------");
-	console.log('Transaction Menu');
+	console.log('Transaction Menu('+ currentAccount +')');
 	console.log("------------------------------");
 	console.log(" 1. register");
 	console.log(" 2. find");
@@ -83,26 +86,26 @@ function selectMainMenu() {
 	});
 }
 
-exports.selectCashbookMenu = function() {
+exports.selectCashbookMenu = function(cashbookAccount) {
 	co(function*() {
-		showCashbookMenu();
+		showCashbookMenu(cashbookAccount);
 		let inputNumber = yield prompt('> ');
 		inputNumber = parseInt(inputNumber,10);
 		switch (inputNumber) {
 		case 1:
-			cashbookConsole.register();
+			CashbookConsole.register();
 			break;
 		case 2:
-			cashbookConsole.find();
+			CashbookConsole.find();
 			break;
 		case 3:
-			 cashbookConsole.modify();
+			CashbookConsole.modify();
 			break;
 		case 4:
-			cashbookConsole.remove();
+			CashbookConsole.remove();
 			break;
 		case 5:
-			exports.selectTransactionMenu();
+			exports.selectTransactionMenu(currentAccount);
 			break;
 		case 0:
 			selectMainMenu();
@@ -115,23 +118,28 @@ exports.selectCashbookMenu = function() {
 	});
 }
 
-exports.selectTransactionMenu = function () {
-	showTransactionMenu();
+exports.selectTransactionMenu = function (currentAccount) {
+	if(currentAccount == undefined){
+		exports.selectCashbookMenu();
+		console.log('select Account First..');
+		return;
+	}
+	showTransactionMenu(currentAccount);
 	co(function*() {
 		let inputNumber = yield prompt('> ');
 		inputNumber = parseInt(inputNumber,10);
 		switch (inputNumber) {
 		case 1:
-			transactionConsole.register();
+			TransactionConsole.register(currentAccount);
 			break;
 		case 2:
-			transactionConsole.find();
+			TransactionConsole.find(currentAccount);
 			break;
 		case 3:
-			transactionConsole.modify();
+			TransactionConsole.modify(currentAccount);
 			break;
 		case 4:
-			transactionConsole.remove();
+			TransactionConsole.remove(currentAccount);
 			break;
 		case 0:
 			exports.selectCashbookMenu();

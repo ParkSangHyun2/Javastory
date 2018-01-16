@@ -1,4 +1,3 @@
-
 class Item{
 	//
 	constructor(type, amount){
