@@ -1,5 +1,5 @@
 const TransactionStore = require('../store/fileStore/TransactionStore.js');
-const Item = require('../domain/share/Item.js');
+const Item = require('../../share/domain/share/Item.js');
 
 
 exports.regist = function(transaction){

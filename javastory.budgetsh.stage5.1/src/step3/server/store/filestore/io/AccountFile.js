@@ -2,7 +2,7 @@
 const co = require('co');
 const prompt = require('co-prompt');
 const FileDbWrapper = require('./FileDbWrapper.js');
-const AccountYearlyDue = require('../../../domain/account/AccountYearlyDue.js');
+const AccountYearlyDue = require('../../../../share/domain/account/AccountYearlyDue.js');
 //const path = require('path');
 const defaultDelimiter = '||';
 

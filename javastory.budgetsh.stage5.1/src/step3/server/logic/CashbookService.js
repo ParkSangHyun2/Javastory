@@ -9,12 +9,10 @@ exports.exist = function(bankAccount) {
 
 exports.regist = function(cashbook) {
 	let bankAccount = cashbook.bankAccount;
-	if (CashbookStore.exist(bankAccount)) {
-		return false;
-	}
 	CashbookStore.regist(cashbook);
 
 	if (!CashbookStore.exist(bankAccount)) {
+		console.log('Fail to create');
 		return false;
 	}
 	return true;

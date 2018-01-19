@@ -1,8 +1,4 @@
-
-
-
-
-
-
+123||9898||{"cashbookId":"123","title":"9898","account":{"name":""},"item":{"type":"9898","amount":"9898"},"id":"9898","memo":"9898","time":0}
+123||001||{"cashbookId":"123","title":"transaction","account":{"name":""},"item":{"type":"Expense","amount":"25000"},"id":"001","memo":"001","time":0}
 
 

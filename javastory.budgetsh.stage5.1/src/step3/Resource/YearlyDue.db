@@ -1,12 +1,8 @@
-234||234||{"member":{"id":"234","name":"234"},"year":234,"monthlyDues":[{"month":"1","amount":"150000","travel":{"id":"234","name":"234"},"type":"Forward"},{"month":"3","amount":"400000","travel":{"id":"234","name":"234"},"type":"Expense"}]}
 
 
 
 
-
-
-
-
+123||123||{"member":{"id":"123","name":"123"},"year":123,"monthlyDues":[]}
 
 
 

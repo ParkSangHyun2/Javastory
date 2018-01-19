@@ -1,12 +1,1 @@
-20390204152063||{"travel":{"id":"ee3e058e-bd86-4a1a-95ef-86f70f29dbe9","club":{"id":"ee3e058e-bd86-4a1a-95ef-86f70f29dbe9","name":"sanghyunClub"},"title":"jejuTravel","leader":null,"term":null,"participantsCount":null,"budgetGoal":null,"memo":"","time":""},"club":{"id":"ee3e058e-bd86-4a1a-95ef-86f70f29dbe9","name":"sanghyunClub"},"leader":{"locale":"KR","socialId":"1993","firstName":"sanghuin","familyName":"park","email":"pus5684@naver.com","phone":"010-9944-6154"},"bankAccount":"20390204152063","currencyCode":"KWR","monthlyDue":35000,"budgetGoal":5000000,"term":{"startDate":"2017-12-31","endtDate":"2018-04-01"},"memo":"","time":0}
-
-
-
-
-
-
-
-
-
-
-000||{"travel":{"id":"f24d468f-c350-4509-bc00-08865b352bb6","club":{"id":"f24d468f-c350-4509-bc00-08865b352bb6","name":"00"},"title":"00","leader":null,"term":null,"participantsCount":null,"budgetGoal":null,"memo":"","time":""},"club":{"id":"f24d468f-c350-4509-bc00-08865b352bb6","name":"00"},"leader":{"locale":"KR","socialId":"00","firstName":"00","familyName":"00","email":"00","phone":"00"},"bankAccount":"000","currencyCode":"KWR","monthlyDue":0,"budgetGoal":0,"term":{"startDate":"00","endDate":"00"},"memo":"","time":0}
+123||{"travel":{"id":"479d3739-666b-4432-8378-c0cc1de75a13","club":{"id":"479d3739-666b-4432-8378-c0cc1de75a13","name":"123"},"title":"123","leader":null,"term":null,"participantsCount":null,"budgetGoal":null,"memo":"","time":""},"club":{"id":"479d3739-666b-4432-8378-c0cc1de75a13","name":"123"},"leader":{"locale":"KR","socialId":"123","firstName":"123","familyName":"123","email":"123","phone":"123"},"bankAccount":"123","currencyCode":"KWR","monthlyDue":123,"budgetGoal":123,"term":{"startDate":"123","endDate":"123"},"memo":"","time":0}

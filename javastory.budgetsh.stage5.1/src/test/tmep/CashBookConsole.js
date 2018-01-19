@@ -1,9 +1,9 @@
-const CashbookService = require('../../logic/CashBookService.js');
-const Travel = require('../../domain/travel/Travel.js');
-const IdName = require('../../domain/share/IdName.js');
-const Socialian = require('../../domain/share/Socialian.js');
-const CashBook = require('../../domain/budget/CashBook.js');
-const DatePair = require('../../domain/share/DatePair.js');
+const CashbookService = require('../../transfer/stub/CashbookServiceStub.js');
+const Travel = require('../../../share/domain/travel/Travel.js');
+const IdName = require('../../../share/domain/share/IdName.js');
+const Socialian = require('../../../share/domain/share/Socialian.js');
+const CashBook = require('../../../share/domain/budget/CashBook.js');
+const DatePair = require('../../../share/domain/share/DatePair.js');
 const MainMenu = require('../menu/MainMenu.js');
 var co = require('co');
 var prompt = require('co-prompt');
@@ -31,6 +31,7 @@ exports.register = function() {
 		if (CashbookService.exist(bankAccount)) {
 			console.log("already exist this Account. -->" + bankAccount);
 			MainMenu.selectCashbookMenu();
+			return;
 		}
 		travelName = yield prompt('\n Travel Name: ');
 		clubName = yield prompt('\n club Name: ');
@@ -65,14 +66,12 @@ exports.register = function() {
 }
 
 exports.find = function() {
-
 	//
 	let bankAccount = '';
-	let cashbook = null;
 	
 	co(function*() {
 		bankAccount = yield prompt('\n Cashbook Account: ');
-		cashbook = CashbookService.retrieve(bankAccount);
+		let cashbook = CashbookService.retrieve(bankAccount);
 		if (cashbook == null) {
 			console.log('> No Cashbook in storage -->' + bankAccount);
 			MainMenu.selectCashbookMenu();

@@ -1,5 +1,5 @@
 const AccountFile = require('./io/AccountFile.js');
-const AccountYearlyDue = require('../../domain/account/AccountYearlyDue.js');
+const AccountYearlyDue = require('../../../share/domain/account/AccountYearlyDue.js');
 
 exports.exist = function(account){
 	//

@@ -1,5 +1,5 @@
 const AccountStore = require('../store/filestore/AccountStore.js');
-const AccountYearlyDue = require('../domain/account/AccountYearlyDue.js');
+const AccountYearlyDue = require('../../share/domain/account/AccountYearlyDue.js');
 
 //const AccountStore = new AccountStore();
 

@@ -105,7 +105,7 @@ exports.selectCashbookMenu = function(cashbookAccount) {
 			CashbookConsole.remove();
 			break;
 		case 5:
-			exports.selectTransactionMenu(currentAccount);
+			exports.selectTransactionMenu(cashbookAccount);
 			break;
 		case 0:
 			selectMainMenu();
